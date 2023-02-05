@@ -6,6 +6,59 @@ public class Rational {
         this(0,1);
     }
 
+    public Rational add(Rational b){
+        Rational sum;
+        int sumNum;
+        int sumDen;
+        sumDen = denominator * b.denominator;
+        sumNum = (b.denominator * numerator) + (denominator * b.numerator);
+        sum = new Rational(sumNum, sumDen);
+        sum.reduce();
+        return sum;
+    }
+
+    public Rational subtract(Rational b){
+        Rational sub;
+        int subNum;
+        int subDen;
+        subDen = denominator * b.denominator;
+        subNum = (b.denominator * numerator) - (denominator * b.numerator);
+        sub = new Rational(subNum, subDen);
+        sub.reduce();
+        return sub;
+    }
+
+    public Rational multiply(Rational b){
+        Rational mult;
+        int multNum;
+        int multDen;
+        multDen = denominator * b.denominator;
+        multNum = numerator * b.numerator;
+        mult = new Rational(multNum, multDen);
+        mult.reduce();
+        return mult;
+    }
+
+    public Rational divide(Rational b){
+        Rational div;
+        int divNum;
+        int divDen;
+        divDen = denominator * b.numerator;
+        divNum = b.denominator * numerator;
+        div = new Rational(divNum, divDen);
+        div.reduce();
+        return div;
+    }
+
+    public boolean equals(Rational b){
+        boolean boolNum;
+        boolean boolDen;
+        this.reduce();
+        b.reduce();
+        boolNum = (this.numerator == b.numerator);
+        boolDen = (this.denominator == b.denominator);
+        return (boolNum && boolDen);
+    }
     public int getNumerator() {
         return numerator;
     }
@@ -29,16 +82,18 @@ public class Rational {
 
     public String toString()
     {
-        this.reduce();
-        if (numerator>denominator) {
+        Rational tempRational = new Rational(numerator,denominator);
+        tempRational.reduce();
+        if (tempRational.numerator>tempRational.denominator) {
             int whole;
             int remainder;
-            remainder = numerator%denominator;
-            whole = (numerator-remainder)/denominator;
-            return whole + " and " + remainder + "/" + denominator;
+            remainder = tempRational.numerator%tempRational.denominator;
+            whole = (tempRational.numerator-remainder)/tempRational.denominator;
+            return whole + " and " + remainder + "/" + tempRational.denominator;
         } else {
-            return numerator + "/" + denominator;
+            return tempRational.numerator + "/" + tempRational.denominator;
         }
+
     }
 
     public void reduce(){
